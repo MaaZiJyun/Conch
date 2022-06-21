@@ -1,0 +1,59 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.footer{
+	padding: 5% 0;
+	background-color: #eee;
+}
+		
+.top-board{
+	padding: 5% 0;
+	margin: 0;
+}
+		
+.navbar{
+	padding: 1% 0;
+	margin: 0;
+}
+		
+.content{
+	margin: 5% 0;
+}
+
+.card{
+	margin: 5%;
+}
+
+.center-board{
+	background-color: #f4f5f9;	
+}
+
+.intro-board{
+	background-color: #ffffff;
+}
+
+.form-comment{
+	padding: 2%;
+	border-color: black;
+}
+
+.comment-box{
+	margin: 10% 0;
+}
+
+.customer-profile{
+	margin: 10% auto;
+}
+
+.house-example{
+	margin: 10% auto;
+}
+
+.notification-bar{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	border: solid 1px #4f4f4f;
+	border-radius: 10px;
+}

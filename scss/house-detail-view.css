@@ -1,0 +1,45 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.footer{
+	padding: 5% 0;
+	background-color: #eee;
+}
+		
+.top-board{
+	padding: 5% 0;
+	margin: 0;
+}
+		
+.navbar{
+	padding: 1% 0;
+	margin: 0;
+}
+		
+.content{
+	margin: 5% 0;
+}
+
+.owner-profile{
+	width: 100%;
+}
+
+.owner-profile img{
+	border-radius: 100%;
+}
+
+.basic-info-col{
+	border-radius: 2%;
+	background-color: #f4f5f9;
+	padding: 2%;
+}
+
+.house-intro-col{
+	padding: 2%;
+}
+
+.house-intro-col img{
+	border-radius: 2%;
+}
