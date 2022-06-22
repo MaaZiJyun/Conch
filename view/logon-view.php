@@ -173,7 +173,7 @@ if (isset($_SESSION['loggedin'])) {
 						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
 						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
-						if ($_SESSION['loggedin']) {
+						if (isset($_SESSION['loggedin'])) {
 							if ($_SESSION['identity'] == 'owner') {
 								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
                                 echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
