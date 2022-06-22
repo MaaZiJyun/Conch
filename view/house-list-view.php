@@ -1,7 +1,8 @@
 <?php
 session_start();
 include("../controller/connection.php");
-$query="select * from house";
+$query="select * from houses";
+echo '<script>alert('.$query.')</script>';
 $data=mysqli_query($conn,$query);
 ?>
 <!DOCTYPE html>
@@ -89,14 +90,14 @@ $data=mysqli_query($conn,$query);
 					<?php 
 					while($result=mysqli_fetch_assoc($data)){
 						echo '<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">';
-						echo '<div class="col p-4 d-flex flex-column position-static">';
+						echo '<div class="col-sm-8 p-4 d-flex flex-column position-static">';
 						echo '<h3 class="mb-0">'.$result['country'].'</strong> '.$result['city'].", ".$result['state'].'</h3>';
 						echo '<div class="mb-1 text-muted">'.$result['address'].'</div>';
 						echo '<p class="card-text mb-auto">'.$result['description'].'</p>';
 						echo '<a href="../view/house-detail-view.php?id='.$result['id'].'" class="stretched-link">View More</a>';
 						echo '</div>';
-						echo '<div class="col-auto d-none d-lg-block">';
-						echo '<img width="100%" height="100%" src="data:pics/jpeg;base64,'.base64_encode( $result['pics'] ).'"/>';
+						echo '<div class="col-sm-4 d-none d-lg-block">';
+						echo '<img width="100%" height="100%" src="../uploads/house-image'.$result['pics'].'"/>';
 						echo '</div>';
 						echo '</div>';
 					}

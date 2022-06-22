@@ -4,7 +4,7 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: ../index.php');
 }
 include("../controller/connection.php");
-$query="select * from logs WHERE target_id=".$_SESSION['id']." AND identity='".$_SESSION['identity']."' AND viewed=0";
+$query="select * from logs WHERE tar_id=".$_SESSION['id']." AND tar_ide='".$_SESSION['identity']."' AND viewed=0";
 $data=mysqli_query($conn,$query);
 ?>
 <!DOCTYPE html>
@@ -58,10 +58,10 @@ $data=mysqli_query($conn,$query);
 				<?php 
 				if ($_SESSION['loggedin']) {
 					if ($_SESSION['identity'] == 'owner') {
-						echo '<li><a href="#" class="nav-link px-2 text-white">My House</a></li>';
-                        echo '<li><a href="#" class="nav-link px-2 text-white">My Booking</a></li>';
+						echo '<li><a href="../view/my-house-view.php" class="nav-link px-2 text-white">My House</a></li>';
+                        echo '<li><a href="../view/my-booking-view.php" class="nav-link px-2 text-white">My Booking</a></li>';
 					} else {
-						echo '<li><a href="#" class="nav-link px-2 text-white">My Booking</a></li>';
+						echo '<li><a href="../view/my-booking-view.php" class="nav-link px-2 text-white">My Booking</a></li>';
 					}
 				} 
 				?>
@@ -264,11 +264,14 @@ $data=mysqli_query($conn,$query);
                                                         echo '<a href="#" style="text-decoration: none; color: black;">'.$result['date'].'</a>';
                                                     echo "</div>";
                                                     echo '<div class="col-sm-1">';
-                                                        echo '<a href="#" style="text-decoration: none; color: red;">';
-                                                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">';
+                                                    echo '<form action="../controller/log.php?method=modify" type="hidden" method="post">';
+                                                        echo '<input type="hidden" name="id" value="'.$result['id'].'">';
+                                                        echo '<button class="btn btn-outline-danger" type="submit" style="padding: 0 25%;">';
+                                                        echo '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">';
                                                             echo '<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>';
                                                         echo '</svg>';
-                                                        echo '</a>';
+                                                        echo '</button>';
+                                                    echo '</form>';
                                                     echo '</div>';
                                                 echo '</div>';
                                             echo '</div>';
@@ -277,7 +280,6 @@ $data=mysqli_query($conn,$query);
                                        echo '<p>No notification in your news</p>';
                                     }
                                     ?>
-                                    
                                 </div>
                             </div>
                             <div class="row">
@@ -312,9 +314,10 @@ $data=mysqli_query($conn,$query);
 						<?php 
 						if ($_SESSION['loggedin']) {
 							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My House</a></li>';
+								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
+                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
 							} else {
-								echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My Booking</a></li>';
+								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
 							}
 						} 
 						?>

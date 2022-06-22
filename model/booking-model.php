@@ -72,6 +72,7 @@ class Booking{
 	}
 
     public function save(){
+        echo '<script> alert("'.$this->duration.'");</script>';
         $consultation = $this->Connection->prepare(
             "INSERT INTO ".$this->table
             ."(o_id, t_id, h_id, price, duration, status)"
@@ -80,6 +81,7 @@ class Booking{
                 "o_id"=>$this->o_id,
                 "t_id"=>$this->t_id,
                 "h_id"=>$this->h_id,
+                "price"=>$this->price,
                 "duration"=>$this->duration,
                 "status"=>$this->status
             ));
@@ -92,21 +94,12 @@ class Booking{
         $consultation = $this->Connection->prepare("
             UPDATE " . $this->table . " 
             SET 
-                o_id = :o_id,
-                t_id = :t_id,
-                h_id = :h_id,
-                price = :price,
-                duration = :duration,
                 status = :status
             WHERE id = :id 
         ");
 
         $resultado = $consultation->execute(array(
             "id" => $this->id,
-            "o_id"=>$this->o_id,
-            "t_id"=>$this->t_id,
-            "h_id"=>$this->h_id,
-            "duration"=>$this->duration,
             "status"=>$this->status
         ));
         $this->Connection = null;

@@ -194,17 +194,23 @@ $result_owner=$controllerO->detail($result_house['owner_id']);
 							if (isset($_SESSION['loggedin']) && $_SESSION['identity'] == 'tenant') {
 								echo '<a href="../view/booking-register-view.php?h_id='.$result_house['id'].'&o_id='.$result_owner['o_id'].'&rate='.$result_house['rate'].'" style="height: fit-content;" class="btn btn-dark btn-block mt-2">Book Now!</a>';
 							}elseif (isset($_SESSION['loggedin']) && $_SESSION['identity'] == 'owner') {
-								# code...
+								if ($result_owner['o_id']==$_SESSION['id']) {
+									echo '<form method="POST" action="../controller/log.php?method=delete&table=house&nolog=yes">
+										<input type="hidden" name="id" value="'.$result_house['id'].'">
+										<button style="height: fit-content;" type="submit" class="btn btn-outline-danger btn-block mt-2">Delete this House</button>
+									</form>';
+								}
 							} else {
 								echo '<a href="../view/logon-view.php" style="height: fit-content;" class="btn btn-dark btn-block mt-2">Log in and Book Now!</a>';
 							}
 							?>
 						</div>
+						
 						<div class="house-intro-col col-sm-8 d-grid">
 							<h3>
 								<?php echo $result_house['address'] ?>
 							</h3>
-							<img class="mb-2" width="100%" src="<?php echo 'data:pics/jpeg;base64,'.base64_encode( $result_house['pics'] ); ?>">
+							<img class="mb-2" width="100%" src="<?php echo '../uploads/house-image'.$result_house['pics']; ?>">
 							<p><?php echo $result_house['description'] ?></p>
 						</div>
 					</div>

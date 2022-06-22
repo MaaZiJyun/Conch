@@ -1,13 +1,13 @@
 <?php
 if (!session_id()) session_start();
-class LogController{
+class BookingController{
 
     private $conectar;
     private $Connection;
 
     public function __construct() {
 		require_once  "../core/Conectar.php";
-        require_once  "../model/log-model.php";
+        require_once  "../model/booking-model.php";
         
         $this->conectar=new Conectar();
         $this->Connection=$this->conectar->Connection();
@@ -47,13 +47,12 @@ class LogController{
     public function index(){
         
         //We create the Owner object
-        $log=new Log($this->Connection);
-        $log->setTar_ide($_POST["name"]);
-        $log->setTar_id($_POST["name"]);
+        $booking=new Booking($this->Connection);
+        
         //We get all the Owners
-        $logs=$log->getAllFromReceiver();
+        $bookings=$booking->getAll();
        
-        return $logs;
+        return $bookings;
     }
 
     /**
@@ -64,15 +63,15 @@ class LogController{
     public function detail($id){
         
         //We load the model
-        $model = new Log($this->Connection);
+        $model = new Booking($this->Connection);
         //We recover the Owner from the BBDD
-        $log = $model->getById($id);
+        $booking = $model->getById($id);
         //We load the detail view and pass values to it
         // $this->view("detail",array(
         //     "owner"=>$owner,
         //     "titulo" => "detail owner"
         // ));
-        return $log;
+        return $booking;
     }
     
    /**
@@ -84,18 +83,21 @@ class LogController{
 
         // echo '<script> alert("'.$_POST["name"].'");</script>';
 
-        $log=new Log($this->Connection);
-        $log->setOri_ide($_POST["ori_ide"]);
-        $log->setTar_ide($_POST["tar_ide"]);
-        $log->setOri_id($_POST["ori_id"]);
-        $log->setTar_id($_POST["tar_id"]);
-        $log->setAction($_POST["action"]);
-        $log->setDate($_POST["date"]);
-        $log->setViewed($_POST["viewed"]);
+        // if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["mobile_no"]) && isset($_POST["pwd"])
+        // && $_POST["name"] != '' && $_POST["email"] != '' && $_POST["mobile_no"] != '' && $_POST["pwd"] != ''){
+            $booking=new Booking($this->Connection);
+            $booking->setO_id($_POST["o_id"]);
+            $booking->setT_id($_POST["t_id"]);
+            $booking->setH_id($_POST["h_id"]);
+            $booking->setPrice($_POST["price"]);
+            $booking->setDuration($_POST["duration"]);
+            $booking->setStatus($_POST["status"]);
+            $save=$booking->save();
 
-        $save=$log->save();
-        // echo '<script> alert("New booking created successfully"); window.location.href="../index.php"</script>';
-
+            header('Location: ../view/index.php');
+        // }else{
+        //     header('Location: ../view/logon-view.php');
+        // }
     }
 
    /**
@@ -104,14 +106,15 @@ class LogController{
     *
     */
     public function modify(){
-        if(isset($_POST["id"])){
+        if(isset($_POST["b_id"])){
             //We create a user
-            $log=new Log($this->Connection);
-            $log->setId($_POST["id"]);
-            $log->setViewed("1");
-            $save=$log->update();
+            $booking=new Booking($this->Connection);
+            $booking->setId($_POST["b_id"]);
+            $booking->setStatus($_POST["status"]);
+            $save=$booking->update();
+
         }
-        header('Location: ../index.php');
+        header('Location: ../view/my-booking-view.php');
     }
     
     

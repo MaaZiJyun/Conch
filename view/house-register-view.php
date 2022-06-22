@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: ../index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,18 +37,19 @@
 			<div class="content">
 				<div class="container">
 					<div class="center login-card">
-						<form action="/action_page.php">
+						<form method="POST" enctype="multipart/form-data" action="../controller/log.php?method=register&table=house&nolog=yes">
 							<div class="input-block">
 								<label for="ownername" class="form-label">Owner Name:</label>
-								<input type="text" class="form-control" id="ownername" placeholder="Enter Owner Name"
-									name="ownername">
+								<input type="text" class="form-control" id="ownername" value="<?php echo $_SESSION['userdata']['name'];?> (Name of this account)"
+									name="ownername" disabled>
+								<input type="hidden" id="owner_id" name="owner_id" value="<?php echo $_SESSION['id'];?>">
 							</div>
 							<div class="row">
 								<div class="col">
 									<div class="input-block">
 										<label for="noofrooms" class="form-label">No of Rooms:</label>
-										<input type="number" class="form-control" id="noofrooms" placeholder="Enter No of Rooms"
-											name="noofrooms">
+										<input type="number" class="form-control" id="no_of_rooms" placeholder="Enter No of Rooms"
+											name="no_of_rooms">
 									</div>
 								</div>
 								<div class="col">
@@ -88,11 +95,11 @@
 							</div>
 							<div class="input-block">
 								<label for="desc" class="form-label">Description:</label>
-								<textarea row="5" type="text" class="form-control" id="desc" placeholder="Add more information of your house"
-									name="desc"></textarea>
+								<textarea row="5" type="text" class="form-control" id="description" placeholder="Add more information of your house"
+									name="description"></textarea>
 							</div>
 							<div class="button-block d-grid">
-								<button type="submit" class="btn btn-dark btn-block">Register</button>
+								<button type="submit" name="submit" class="btn btn-dark btn-block">Register Your House</button>
 							</div>
 						</form>
 					</div>

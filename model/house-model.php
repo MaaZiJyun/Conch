@@ -1,6 +1,6 @@
 <?php
 class House{
-    private $table = "house";
+    private $table = "houses";
     private $Connection;
 
     private $id;
@@ -97,25 +97,31 @@ class House{
 	public function setDescription($description){
 		$this->description = $description;
 	}
+    
 
     public function save(){
+        
         $consultation = $this->Connection->prepare(
-            "INSERT INTO ".$this->table
-            ."(owner_id, no_of_rooms, rate, pics, country, state, city, address, description)"
-            ."VALUES(:owner_id, :no_of_rooms, :rate, :pics, :country, :state, :city, :address, :description)");
-            $result = $consultation->execute(array(
-                "owner_id"=>$this->owner_id,
-                "no_of_rooms"=>$this->no_of_rooms,
-                "rate"=>$this->rate,
-                "pics"=>$this->pics,
-                "country"=>$this->country,
-                "state"=>$this->state,
-                "city"=>$this->city,
-                "address"=>$this->address,
-                "description"=>$this->description
-            ));
-            $this->Connection = null;
-            return $result;
+        "INSERT INTO ".$this->table
+        ."(owner_id, no_of_rooms, rate, pics, country, state, city, address, description)"
+        ."VALUES(:owner_id, :no_of_rooms, :rate, :pics, :country, :state, :city, :address, :description)");
+
+        $result = $consultation->execute(array(
+            "owner_id"=>$this->owner_id,
+            "no_of_rooms"=>$this->no_of_rooms,
+            "rate"=>$this->rate,
+            "pics"=>$this->pics,
+            "country"=>$this->country,
+            "state"=>$this->state,
+            "city"=>$this->city,
+            "address"=>$this->address,
+            "description"=>$this->description
+        ));
+
+        echo $result;
+
+        $this->Connection = null;
+        return $result;
     }
 
     public function update(){

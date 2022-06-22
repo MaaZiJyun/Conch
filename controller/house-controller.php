@@ -30,8 +30,8 @@ class HouseController{
             case "detail" :
                 $this->detail();
                 break;
-            case "modify" :
-                $this->modify();
+            case "delete" :
+                $this->delete();
                 break;
             default:
                 $this->index();
@@ -80,29 +80,35 @@ class HouseController{
     *
     */
     public function register(){
-
-        // echo '<script> alert("'.$_POST["name"].'");</script>';
-
-        if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["mobile_no"]) && isset($_POST["pwd"])
-        && $_POST["name"] != '' && $_POST["email"] != '' && $_POST["mobile_no"] != '' && $_POST["pwd"] != ''){
-            //Creamos un usuario
-            $owner=new Owner($this->Connection);
-            $owner->setName($_POST["name"]);
-            $owner->setEmail($_POST["email"]);
-            $owner->setPwd($_POST["pwd"]);
-            $owner->setMobile_no($_POST["mobile_no"]);
-            $owner->setOccupation($_POST["occupation"]);
-            $owner->setNo_of_houses($_POST["no_of_houses"]);
-            $owner->setCountry($_POST["country"]);
-            $owner->setState($_POST["state"]);
-            $owner->setCity($_POST["city"]);
-            $owner->setAddress($_POST["address"]);
-            $save=$owner->save();
-
-            header('Location: ../view/login-view.php');
-        }else{
-            header('Location: ../view/logon-view.php');
+        if(isset($_POST["submit"])) {
+            echo $_FILES['pics']['name'];
+            $name = $_FILES['pics']['name'];
+            $target_dir = "../uploads/house-image";
+            $target_file = $target_dir . basename($_FILES["pics"]["name"]);
+            // Select file type
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            // Valid file extensions
+            $extensions_arr = array("jpg","jpeg","png","gif");
+            // Check extension
+            if( in_array($imageFileType,$extensions_arr) ){
+                // Upload file
+                echo move_uploaded_file($_FILES['pics']['tmp_name'], $target_file);
+            }
         }
+        // echo '<script> alert("'.$_POST["description"].'");</script>';
+            $house=new House($this->Connection);
+            $house->setOwner_id($_POST["owner_id"]);
+            $house->setNo_of_rooms($_POST["no_of_rooms"]);
+            $house->setRate($_POST["rate"]);
+            $house->setPics($name);
+            $house->setCountry($_POST["country"]);
+            $house->setState($_POST["state"]);
+            $house->setCity($_POST["city"]);
+            $house->setAddress($_POST["address"]);
+            $house->setDescription($_POST["description"]);
+            $save=$house->save();
+
+            // header('Location: ../view/my-house-view.php');
     }
 
    /**
@@ -110,38 +116,13 @@ class HouseController{
      * and reload the index.php.
     *
     */
-    public function modify(){
+    public function delete(){
         if(isset($_POST["id"])){
             //We create a user
-            $owner=new Owner($this->Connection);
-            $owner->setO_id($_POST["id"]);
-            $owner->setName($_POST["name"]);
-            $owner->setEmail($_POST["email"]);
-            // $owner->setPwd($_SESSION["pwd"]);
-            $owner->setMobile_no($_POST["mobile_no"]);
-            $owner->setOccupation($_POST["occupation"]);
-            $owner->setNo_of_houses($_POST["no_of_houses"]);
-            $owner->setCountry($_POST["country"]);
-            $owner->setState($_POST["state"]);
-            $owner->setCity($_POST["city"]);
-            $owner->setAddress($_POST["address"]);
-            $save=$owner->update();
-
-            $_SESSION['userdata'] = array(
-                "o_id" =>$_POST["id"],
-                "name"=>$_POST['name'],
-                "email"=>$_POST['email'],
-                // "pwd"=>$_POST['pwd'],
-                "mobile_no"=>$_POST['mobile_no'],
-                "occupation"=>$_POST['occupation'],
-                "no_of_houses"=>$_POST['no_of_houses'],
-                "country"=>$_POST['country'],
-                "state"=>$_POST['state'],
-                "city"=>$_POST['city'],
-                "address"=>$_POST['address']
-            );
+            $house=new House($this->Connection);
+            $house->deleteById($_POST["id"]);
         }
-        header('Location: ../index.php');
+        header('Location: ../view/house-list-view.php');
     }
     
     

@@ -41,7 +41,13 @@ $t_id=$_SESSION['id'];
 			<div class="container">
 			    <div class="center login-card">
 					<form name="booking" id="booking" method="post" onsubmit="return upload()">
-                        <input class="form-control" type="hidden" name="action" value="booking"/>
+                        <input class="form-control" type="hidden" name="action" value="Booking Applying"/>
+                        <input class="form-control" type="hidden" name="ori_id" value="<?php echo $_SESSION['id']; ?>"/>
+                        <input class="form-control" type="hidden" name="tar_id" value="<?php echo $o_id ?>"/>
+                        <input class="form-control" type="hidden" name="ori_ide" value="tenant"/>
+                        <input class="form-control" type="hidden" name="tar_ide" value="owner"/>
+                        <input class="form-control" type="hidden" name="date" value="<?php echo date("Y-m-d H:i:s"); ?>"/>
+                        <input class="form-control" type="hidden" name="viewed" value="0"/>
                         <div class="row">
                             <div class="col">
                                 <div class="input-block">
@@ -82,6 +88,7 @@ $t_id=$_SESSION['id'];
                                 </div>
                             </div>
                         </div>
+                        <input class="form-control" type="hidden" name="status" value="Processing"/>
 						<div class="button-block d-grid">
 							<button type="submit" class="btn btn-dark btn-block">Submit</button>
 						</div>
@@ -94,42 +101,13 @@ $t_id=$_SESSION['id'];
                             price.value = rate*duration;
                         }
 
-                        function log(){
-                            var logform = document.createElement("form");
-                            var ori_ide = document.createElement("input");
-                            ori_ide.value = "tenant";
-                            logform.appendChild(ori_ide);
-                            var tar_ide = document.createElement("input");
-                            tar_ide.value = "owner";
-                            logform.appendChild(tar_ide);
-                            var ori_id = document.createElement("input");
-                            ori_id.value = "<?php echo $_SESSION['id'] ?>";
-                            logform.appendChild(ori_id);
-                            var tar_id = document.createElement("input");
-                            tar_id.value = "<?php echo $o_id ?>";
-                            logform.appendChild(tar_id);
-                            var action = document.createElement("input");
-                            action.value = "Booking";
-                            logform.appendChild(action);
-                            var date = document.createElement("input");
-                            date.value = date("Y-m-d");
-                            logform.appendChild(date);
-                            var viewed = document.createElement("input"); 
-                            viewed.value = 0;
-                            logform.appendChild(viewed);
-                            logform.method="POST";
-                            form.action = "../controller/log.php?action=register";
-                            form.submit();
-                            
-                        }
-
                         function upload(){
                             var duration = document.getElementById('duration').value;
                             if (duration) {
-                                // var form = document.forms["booking"];
-                                // form.method = "POST";
-                                // form.action = "../controller/log.php?action=register";
-                                // form.submit();
+                                var form = document.forms["booking"];
+                                form.method = "POST";
+                                form.action = "../controller/log.php?method=register&table=booking";
+                                form.submit();
                                 return false;
                             } else {
                                 alert('Please input the duration before submit');
@@ -140,27 +118,6 @@ $t_id=$_SESSION['id'];
 			</div>
 		</div>
 	</main>
-
-	<script>
-		function check() {
-			var email = document.forms["login"]["email"].value;
-			var pwd = document.forms["login"]["pwd"].value;
-			if (email != '' && pwd !='') {
-				var identity = document.forms["login"]["identity"].value;
-				var form = document.forms["login"];
-				form.method = "POST";
-				if (identity == "Owner") {
-					form.action = "../controller/user-controller.php?identity=owner&action=login";
-				} else {
-					form.action = "../controller/user-controller.php?identity=tenant&action=login";
-				}
-				form.submit();
-				return false;
-			} else {
-				alert('Please fill in both email and password');
-			}
-		}
-	</script>
 	
 	<!-- footer -->
 	<div class="footer container-fluid">

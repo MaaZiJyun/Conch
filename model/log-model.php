@@ -103,11 +103,12 @@ class Log{
         $consultation = $this->Connection->prepare("
             UPDATE " . $this->table . " 
             SET 
-                viewed = :viewed,
+                viewed = :viewed
             WHERE id = :id 
         ");
 
         $resultado = $consultation->execute(array(
+            "id"=>$this->id,
             "viewed"=>$this->viewed
         ));
         $this->Connection = null;
