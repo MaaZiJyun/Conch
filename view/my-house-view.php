@@ -30,7 +30,7 @@ $data=mysqli_query($conn,$sql);
 		<!-- broad section -->
 		<div class="top-board jumbotron text-center">
 			<div class="container">
-				<h1>Your Houses</h1>
+				<h1>My Houses</h1>
 				<p>Resize this responsive page to see the effect!</p>
 				<!-- <form class="form-inline">
 					<div class="input-group">
@@ -58,10 +58,10 @@ $data=mysqli_query($conn,$sql);
 				<?php 
 				if ($_SESSION['loggedin']) {
 					if ($_SESSION['identity'] == 'owner') {
-						echo '<li><a href="#" class="nav-link px-2 text-white">My House</a></li>';
-                        echo '<li><a href="#" class="nav-link px-2 text-white">My Booking</a></li>';
+						echo '<li><a href="../view/my-house-view.php" class="nav-link px-2 text-white">My House</a></li>';
+                        echo '<li><a href="../view/my-booking-view.php" class="nav-link px-2 text-white">My Booking</a></li>';
 					} else {
-						echo '<li><a href="#" class="nav-link px-2 text-white">My Booking</a></li>';
+						echo '<li><a href="../view/my-booking-view.php" class="nav-link px-2 text-white">My Booking</a></li>';
 					}
 				} 
 				?>
@@ -77,8 +77,8 @@ $data=mysqli_query($conn,$sql);
 					echo '</div>';
 					echo '</div>';
 				} else {
-					echo '<a href="../view/login-view.html" class="btn btn-outline-light me-2">Sign-in</a>';
-					echo '<a href="../view/logon-view.html" class="btn btn-success">Sign-up</a>';
+					echo '<a href="../view/login-view.php" class="btn btn-outline-light me-2">Sign-in</a>';
+					echo '<a href="../view/logon-view.php" class="btn btn-success">Sign-up</a>';
 				}
 				?>
 		      </div>
@@ -126,14 +126,15 @@ $data=mysqli_query($conn,$sql);
 					</a>
 
 					<ul class="nav col-md-4 justify-content-end">
-						<li class="nav-item"><a href="./index.php" class="nav-link px-2 text-muted">Home</a></li>
-						<li class="nav-item"><a href="./view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
+						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
+						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
 						if ($_SESSION['loggedin']) {
 							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My House</a></li>';
+								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
+                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
 							} else {
-								echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My Booking</a></li>';
+								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
 							}
 						} 
 						?>

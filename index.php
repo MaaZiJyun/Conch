@@ -4,7 +4,7 @@ if (isset($_SESSION['loggedin'])) {
 	header('Location: ./view/home-view.php');
 }
 include("./controller/connection.php");
-$query="select * from house LIMIT 4";
+$query="select * from houses LIMIT 4";
 $data=mysqli_query($conn,$query);
 ?>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ $data=mysqli_query($conn,$query);
 			<div class="container">
 				<h1>Conch</h1>
 				<p>Resize this responsive page to see the effect!</p>
-				<form class="form-inline">
+				<!-- <form class="form-inline">
 					<div class="input-group">
 						<input type="text" class="form-control" size="50" placeholder="Any place you wanna explore?"
 							required>
@@ -40,7 +40,7 @@ $data=mysqli_query($conn,$query);
 							<button type="button" class="btn btn-dark">Search</button>
 						</div>
 					</div>
-				</form>
+				</form> -->
 			</div>
 		</div>
 
@@ -107,7 +107,7 @@ $data=mysqli_query($conn,$query);
 							echo '<div class="row">';
 							echo '<div class="col-sm-3">';
 							echo '<div class="card" style="width: 100%;">';
-							echo '<img class="card-img-top" width="100%" src="data:pics/jpeg;base64,'.base64_encode( $result['pics'] ).'"/>';
+							echo '<img class="card-img-top" width="100%" src="./uploads/house-image'.$result['pics'].'"/>';
 							echo '<div class="card-body">';
 							echo '<h5>'.$result['address'].'</h5>';
 							echo '<p><strong>'.$result['country'].'</strong> '.$result['city'].", ".$result['state'].'</p>';
@@ -118,7 +118,7 @@ $data=mysqli_query($conn,$query);
 						}elseif ($loopn < 4) {
 							echo '<div class="col-sm-3">';
 							echo '<div class="card" style="width: 100%;">';
-							echo '<img class="card-img-top" width="100%" src="data:pics/jpeg;base64,'.base64_encode( $result['pics'] ).'"/>';
+							echo '<img class="card-img-top" width="100%" src="./uploads/house-image'.$result['pics'].'"/>';
 							echo '<div class="card-body">';
 							echo '<h5>'.$result['address'].'</h5>';
 							echo '<p><strong>'.$result['country'].'</strong> '.$result['city'].", ".$result['state'].'</p>';
@@ -129,7 +129,7 @@ $data=mysqli_query($conn,$query);
 						}else {
 							echo '<div class="col-sm-3">';
 							echo '<div class="card" style="width: 100%;">';
-							echo '<img class="card-img-top" width="100%" src="data:pics/jpeg;base64,'.base64_encode( $result['pics'] ).'"/>';
+							echo '<img class="card-img-top" width="100%" src="./uploads/house-image'.$result['pics'].'"/>';
 							echo '<div class="card-body">';
 							echo '<h5>'.$result['address'].'</h5>';
 							echo '<p><strong>'.$result['country'].'</strong> '.$result['city'].", ".$result['state'].'</p>';
@@ -240,9 +240,9 @@ $data=mysqli_query($conn,$query);
 						<?php 
 						if (isset($_SESSION['loggedin'])) {
 							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My House</a></li>';
+								echo '<li class="nav-item"><a href="./view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
 							} else {
-								echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My Booking</a></li>';
+								echo '<li class="nav-item"><a href="./view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
 							}
 						} 
 						?>

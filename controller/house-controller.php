@@ -108,7 +108,7 @@ class HouseController{
             $house->setDescription($_POST["description"]);
             $save=$house->save();
 
-            // header('Location: ../view/my-house-view.php');
+            header('Location: ../view/my-house-view.php');
     }
 
    /**

@@ -32,7 +32,7 @@ $data=mysqli_query($conn,$query);
 			<div class="container">
 				<h1>Conch</h1>
 				<p>Resize this responsive page to see the effect!</p>
-				<form class="form-inline">
+				<!-- <form class="form-inline">
 					<div class="input-group">
 						<input type="text" class="form-control" size="50" placeholder="Any place you wanna explore?"
 							required>
@@ -40,7 +40,7 @@ $data=mysqli_query($conn,$query);
 							<button type="button" class="btn btn-dark">Search</button>
 						</div>
 					</div>
-				</form>
+				</form> -->
 			</div>
 		</div>
 
@@ -91,164 +91,165 @@ $data=mysqli_query($conn,$query);
 			<div class="content">
                 <div class="container mb-5">
                     <div class="row align-items-md-stretch">
-                        <div class="col-md-5">
-                            <div class="p-4 mb-4 bg-light border rounded-3">
-                                <div class="py-2" id="disable-form">
-                                    <h1 class="display-5 fw-bold">Welcome! <br><?php echo $_SESSION['name'] ?></h1>
-                                    <div>
-                                        <?php 
-                                        if ($_SESSION['loggedin']) {
-                                            if ($_SESSION['identity'] == 'owner') {
-                                                echo '<label for="exampleFormControlInput1">My Conch ID:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['o_id'].'" readonly>';
+                        <!-- <div class="row"> -->
+                            <div class="col-md-5">
+                                <div class="p-4 mb-4 bg-light border rounded-3">
+                                    <div class="py-2" id="disable-form">
+                                        <h1 class="display-5 fw-bold">Welcome! <br><?php echo $_SESSION['name'] ?></h1>
+                                        <div>
+                                            <?php 
+                                            if ($_SESSION['loggedin']) {
+                                                if ($_SESSION['identity'] == 'owner') {
+                                                    echo '<label for="exampleFormControlInput1">My Conch ID:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['o_id'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Name:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['name'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Name:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['name'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Email:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Email:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Mobile:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['mobile_no'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Mobile:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['mobile_no'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Occupation:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Occupation:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">Number of Houses:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['no_of_houses'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">Number of Houses:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['no_of_houses'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Country:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['country'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Country:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['country'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My State:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['state'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My State:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['state'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My City:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['city'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My City:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['city'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Address:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['address'].'" readonly>';
-                                            } else {
-                                                echo '<label for="exampleFormControlInput1">My Conch ID:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['t_id'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Address:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['address'].'" readonly>';
+                                                } else {
+                                                    echo '<label for="exampleFormControlInput1">My Conch ID:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['t_id'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Name:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['fname'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Name:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['fname'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Name:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['lname'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Name:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['lname'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Email:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Email:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Mobile:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['mobile_no'].'" readonly>';
+                                                    echo '<label for="exampleFormControlInput1">My Mobile:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['mobile_no'].'" readonly>';
 
-                                                echo '<label for="exampleFormControlInput1">My Occupation:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" readonly>';
-                                            }
-                                        } 
-                                        ?>
-                                    </div>
-                                    <div class="col d-grid">
-                                        <button class="btn btn-dark btn-lg mt-4" type="button" onclick="showEdit()" >Edit your personal information</button>
-                                    </div>
-                                    
-                                </div>
-
-                                <div class="py-2" id="hidden-form" style="display: none;">
-                                    <form name="edit" id="edit" method="post" onsubmit="return check()">
-                                        <input class="form-control" type="hidden" name="id" value="<?php echo $_SESSION["id"] ?>"/>
-                                        <?php 
-                                        if ($_SESSION['identity'] == 'owner') {
-
-                                                echo '<label for="exampleFormControlInput1">My Name:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['name'].'" id="name" name="name" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Email:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" id="email" name="email" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Mobile:</label>';
-                                                echo '<input class="form-control" type="number" value="'.$_SESSION['userdata']['mobile_no'].'" id="mobile_no" name="mobile_no" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Occupation:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" id="occupation" name="occupation" >';
-
-                                                echo '<label for="exampleFormControlInput1">Number of Houses:</label>';
-                                                echo '<input class="form-control" type="number" value="'.$_SESSION['userdata']['no_of_houses'].'" id="no_of_houses" name="no_of_houses" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Country:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['country'].'" id="country" name="country" >';
-
-                                                echo '<label for="exampleFormControlInput1">My State:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['state'].'" id="state" name="state" >';
-
-                                                echo '<label for="exampleFormControlInput1">My City:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['city'].'" id="city" name="city" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Address:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['address'].'" id="address" name="address" >';
-                                            } else {
-
-                                                echo '<label for="exampleFormControlInput1">My Name:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['fname'].'" id="fname" name="fname" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Name:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['lname'].'" id="lname" name="lname" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Email:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" id="email" name="email" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Mobile:</label>';
-                                                echo '<input class="form-control" type="number" value="'.$_SESSION['userdata']['mobile_no'].'" id="mobile_no" name="mobile_no" >';
-
-                                                echo '<label for="exampleFormControlInput1">My Occupation:</label>';
-                                                echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" id="occupation" name="occupation" >';
-                                            }
-                                        ?>
-                                        <div class="row">
-                                            <div class="col d-grid">
-                                                <button class="btn btn-dark btn-lg mt-4" type="submit">Finish</button>
-                                            </div>
-                                            <div class="col d-grid">
-                                                <button class="btn btn-outline-dark btn-lg mt-4" type="button" onclick="hideEdit()" >Cancel</button>
-                                            </div>
+                                                    echo '<label for="exampleFormControlInput1">My Occupation:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" readonly>';
+                                                }
+                                            } 
+                                            ?>
                                         </div>
-                                    </form>
+                                        <div class="col d-grid">
+                                            <button class="btn btn-dark btn-lg mt-4" type="button" onclick="showEdit()" >Edit your personal information</button>
+                                        </div>
+                                        
+                                    </div>
 
-                                    <script>
+                                    <div class="py-2" id="hidden-form" style="display: none;">
+                                        <form name="edit" id="edit" method="post" onsubmit="return check()">
+                                            <input class="form-control" type="hidden" name="id" value="<?php echo $_SESSION["id"] ?>"/>
+                                            <?php 
+                                            if ($_SESSION['identity'] == 'owner') {
 
-                                    function showEdit(){
-                                        document.getElementById("disable-form").style.display = 'none';
-                                        document.getElementById("hidden-form").style.display = '';
-                                    }
+                                                    echo '<label for="exampleFormControlInput1">My Name:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['name'].'" id="name" name="name" >';
 
-                                    function hideEdit(){
-                                        document.getElementById("disable-form").style.display = '';
-                                        document.getElementById("hidden-form").style.display = 'none';
-                                    }
+                                                    echo '<label for="exampleFormControlInput1">My Email:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" id="email" name="email" >';
 
-                                    function check(){
-                                        var form = document.forms["edit"];
-                                        var identity='<?php echo $_SESSION['identity'];?>';
-                                        form.method = "POST";
-                                        if (identity=="owner") {
-                                            form.action = "../controller/user-controller.php?identity=owner&action=modify";
-                                        } else {
-                                            form.action = "../controller/user-controller.php?identity=tenant&action=modify";
+                                                    echo '<label for="exampleFormControlInput1">My Mobile:</label>';
+                                                    echo '<input class="form-control" type="number" value="'.$_SESSION['userdata']['mobile_no'].'" id="mobile_no" name="mobile_no" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Occupation:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" id="occupation" name="occupation" >';
+
+                                                    echo '<label for="exampleFormControlInput1">Number of Houses:</label>';
+                                                    echo '<input class="form-control" type="number" value="'.$_SESSION['userdata']['no_of_houses'].'" id="no_of_houses" name="no_of_houses" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Country:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['country'].'" id="country" name="country" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My State:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['state'].'" id="state" name="state" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My City:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['city'].'" id="city" name="city" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Address:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['address'].'" id="address" name="address" >';
+                                                } else {
+
+                                                    echo '<label for="exampleFormControlInput1">My Name:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['fname'].'" id="fname" name="fname" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Name:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['lname'].'" id="lname" name="lname" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Email:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['email'].'" id="email" name="email" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Mobile:</label>';
+                                                    echo '<input class="form-control" type="number" value="'.$_SESSION['userdata']['mobile_no'].'" id="mobile_no" name="mobile_no" >';
+
+                                                    echo '<label for="exampleFormControlInput1">My Occupation:</label>';
+                                                    echo '<input class="form-control" type="text" value="'.$_SESSION['userdata']['occupation'].'" id="occupation" name="occupation" >';
+                                                }
+                                            ?>
+                                            <div class="row">
+                                                <div class="col d-grid">
+                                                    <button class="btn btn-dark btn-lg mt-4" type="submit">Finish</button>
+                                                </div>
+                                                <div class="col d-grid">
+                                                    <button class="btn btn-outline-dark btn-lg mt-4" type="button" onclick="hideEdit()" >Cancel</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <script>
+
+                                        function showEdit(){
+                                            document.getElementById("disable-form").style.display = 'none';
+                                            document.getElementById("hidden-form").style.display = '';
                                         }
-                                        form.submit();
-                                        return false;
-                                    }
 
-                                </script>
+                                        function hideEdit(){
+                                            document.getElementById("disable-form").style.display = '';
+                                            document.getElementById("hidden-form").style.display = 'none';
+                                        }
 
+                                        function check(){
+                                            var form = document.forms["edit"];
+                                            var identity='<?php echo $_SESSION['identity'];?>';
+                                            form.method = "POST";
+                                            if (identity=="owner") {
+                                                form.action = "../controller/user-controller.php?identity=owner&action=modify";
+                                            } else {
+                                                form.action = "../controller/user-controller.php?identity=tenant&action=modify";
+                                            }
+                                            form.submit();
+                                            return false;
+                                        }
+
+                                    </script>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="row mb-3">
-                                <div class="h-100 p-5 bg-light border rounded-3  d-grid">
+
+                            <div class="col-md-7">
+                                <div class="p-5 text-white bg-dark rounded-3 d-grid">
                                     <h2>News</h2>
                                     <p>There are notifications from this website</p>
                                     <?php 
@@ -282,14 +283,14 @@ $data=mysqli_query($conn,$query);
                                     ?>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="h-100 p-5 text-white bg-dark rounded-3">
                                     <h2>Change the background</h2>
                                     <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
                                     <a class="btn btn-outline-light" type="button">Example button</a>
                                 </div>
-                            </div>
-                        </div>
+                            </div> -->
+                        <!-- </div> -->
                     </div>
                 </div>
 			</div>
@@ -309,8 +310,8 @@ $data=mysqli_query($conn,$query);
 					</a>
 
 					<ul class="nav col-md-4 justify-content-end">
-						<li class="nav-item"><a href="./index.php" class="nav-link px-2 text-muted">Home</a></li>
-						<li class="nav-item"><a href="./view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
+						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
+						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
 						if ($_SESSION['loggedin']) {
 							if ($_SESSION['identity'] == 'owner') {

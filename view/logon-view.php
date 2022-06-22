@@ -170,11 +170,18 @@ if (isset($_SESSION['loggedin'])) {
 					</a>
 
 					<ul class="nav col-md-4 justify-content-end">
-						<li class="nav-item"><a href="../index.html" class="nav-link px-2 text-muted">Home</a></li>
-						<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-						<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-						<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-						<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
+						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
+						<?php 
+						if ($_SESSION['loggedin']) {
+							if ($_SESSION['identity'] == 'owner') {
+								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
+                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+							} else {
+								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+							}
+						} 
+						?>
 					</ul>
 				</footer>
 			</div>
