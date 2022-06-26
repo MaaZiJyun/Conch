@@ -120,15 +120,6 @@ CREATE TABLE `tenant` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `vacanthouses`
--- (See below for the actual view)
---
-CREATE TABLE `vacanthouses` (
-);
-
--- --------------------------------------------------------
-
---
 -- Structure for view `vacanthouses`
 --
 DROP TABLE IF EXISTS `vacanthouses`;
