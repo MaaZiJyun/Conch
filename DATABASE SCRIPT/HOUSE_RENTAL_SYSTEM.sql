@@ -91,7 +91,7 @@ CREATE TABLE `owner` (
   `o_id` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `pwd` varchar(30) DEFAULT NULL,
+  `pwd` varchar(100) DEFAULT NULL,
   `mobile_no` bigint(20) DEFAULT NULL,
   `occupation` varchar(50) DEFAULT NULL,
   `no_of_houses` int(11) DEFAULT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `tenant` (
   `fname` varchar(20) DEFAULT NULL,
   `lname` varchar(20) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `pwd` varchar(30) DEFAULT NULL,
+  `pwd` varchar(100) DEFAULT NULL,
   `mobile_no` bigint(20) DEFAULT NULL,
   `occupation` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
