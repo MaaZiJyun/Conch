@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (!isset($_SESSION['loggedin']))$_SESSION['loggedin'] = false;
 include("../controller/connection.php");
 $query="select * from houses";
 echo '<script>alert('.$query.')</script>';
@@ -66,11 +67,11 @@ $data=mysqli_query($conn,$query);
 		      </ul>
 		      <div class="d-flex">
 				<?php
-				if (isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin']) {
 					echo '<div class="btn-group">';
 					echo '<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown"> Hello~ '.$_SESSION['name'].'</button>';
 					echo '<div class="dropdown-menu">';
-					// echo '<a class="dropdown-item" href="#">Profile</a>';
+					echo '<a class="dropdown-item" href="../view/home-view.php">Profile</a>';
 					echo '<a class="dropdown-item" href="../controller/logout.php">Sign-out</a>';
 					echo '</div>';
 					echo '</div>';
@@ -124,12 +125,14 @@ $data=mysqli_query($conn,$query);
 						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
 						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
-						if (isset($_SESSION['loggedin'])) {
-							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
-                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							} else {
-								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+						if ($_SESSION['loggedin']) {
+							if ($_SESSION['loggedin']==true) {
+								if ($_SESSION['identity'] == 'owner') {
+									echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
+									echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+								} else {
+									echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+								}
 							}
 						} 
 						?>

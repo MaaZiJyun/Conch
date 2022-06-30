@@ -68,11 +68,11 @@ $data=mysqli_query($conn,$sql);
 		      </ul>
 		      <div class="d-flex">
 				<?php
-				if (isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin']) {
 					echo '<div class="btn-group">';
 					echo '<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown"> Hello~ '.$_SESSION['name'].'</button>';
 					echo '<div class="dropdown-menu">';
-					// echo '<a class="dropdown-item" href="#">Profile</a>';
+					echo '<a class="dropdown-item" href="../view/home-view.php">Profile</a>';
 					echo '<a class="dropdown-item" href="../controller/logout.php">Sign-out</a>';
 					echo '</div>';
 					echo '</div>';

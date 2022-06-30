@@ -1,7 +1,9 @@
 <?php
 session_start();
 if (isset($_SESSION['loggedin'])) {
-	header('Location: ./view/home-view.php');
+	if ($_SESSION['loggedin']) {
+		header('Location: ../view/index.php');
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ if (isset($_SESSION['loggedin'])) {
 		<div class="content">
 			<div class="container">
 			    <div class="center login-card">
-					<form name="login" id="login" action="../view/login-view.html" method="post" onsubmit="return check()">
+					<form name="login" id="login" action="../view/login-view.php" method="post" onsubmit="return check()">
 						<div class="radio-block">
 							My identity is
 							<input type="radio" id="owner" name="identity" value="Owner" checked="checked">
@@ -48,11 +50,11 @@ if (isset($_SESSION['loggedin'])) {
 						</div>
 						<div class="input-block">
 							<label for="email" class="form-label">Email:</label>
-							<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+							<input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
 						</div>
 						<div class="input-block">
 							<label for="pwd" class="form-label">Password:</label>
-							<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+							<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
 						</div>
 						<div class="form-check">
 							<a href="logon-view.php">Don't have an account in Conch?</a>
@@ -103,16 +105,6 @@ if (isset($_SESSION['loggedin'])) {
 					<ul class="nav col-md-4 justify-content-end">
 						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
 						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
-						<?php 
-						if (isset($_SESSION['loggedin'])) {
-							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
-                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							} else {
-								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							}
-						} 
-						?>
 					</ul>
 				</footer>
 			</div>

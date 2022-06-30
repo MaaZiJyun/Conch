@@ -51,9 +51,13 @@ class OwnerController{
         // echo '<script> alert("'.$_POST["pwd"].'");</script>';
         $owner=new Owner($this->Connection);
         $pwd=$_POST["pwd"];
+        $hash = md5($pwd);
+        // echo '<script> alert("'.$hash.'"); </script>';
         $email=$_POST["email"];
 
-        $result=$owner->getAuth($email, $pwd);
+        // $result=$owner->getAuth($email, $pwd);
+        // add the hash to protect the password from user
+        $result=$owner->getAuth($email, $hash);
         if ($result) {
             // session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
@@ -129,10 +133,15 @@ class OwnerController{
         if(isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["mobile_no"]) && isset($_POST["pwd"])
         && $_POST["name"] != '' && $_POST["email"] != '' && $_POST["mobile_no"] != '' && $_POST["pwd"] != ''){
             //Creamos un usuario
+            // add hashing method
+            $pwd = $_POST["pwd"];
+            $hash = md5($pwd);
+
             $owner=new Owner($this->Connection);
             $owner->setName($_POST["name"]);
             $owner->setEmail($_POST["email"]);
-            $owner->setPwd($_POST["pwd"]);
+            // $owner->setPwd($_POST["pwd"]);
+            $owner->setPwd($hash);
             $owner->setMobile_no($_POST["mobile_no"]);
             $owner->setOccupation($_POST["occupation"]);
             $owner->setNo_of_houses($_POST["no_of_houses"]);
@@ -142,9 +151,9 @@ class OwnerController{
             $owner->setAddress($_POST["address"]);
             $save=$owner->save();
 
-            header('Location: ../view/login-view.php');
+            echo '<script> alert("Register Successfully"); window.location.href="../view/login-view.php"</script>';
         }else{
-            header('Location: ../view/logon-view.php');
+            echo '<script> alert("Register Failed"); window.location.href="../view/logon-view.php"</script>';
         }
     }
 

@@ -1,7 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['loggedin'])) {
-	header('Location: ./view/home-view.php');
+	if ($_SESSION['loggedin'] == true) {
+		header('Location: ./view/index.php');
+	}
+}else {
+	$_SESSION['loggedin'] = false;
 }
 include("./controller/connection.php");
 $query="select * from houses LIMIT 4";
@@ -55,31 +59,10 @@ $data=mysqli_query($conn,$query);
 		      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 				<li><a href="./index.php" class="nav-link px-2 text-white">Home</a></li>
 		      	<li><a href="./view/house-list-view.php" class="nav-link px-2 text-white">View Houses</a></li>
-				<?php 
-				if ($_SESSION['loggedin']) {
-					if ($_SESSION['identity'] == 'owner') {
-						echo '<li><a href="#" class="nav-link px-2 text-white">My House</a></li>';
-					} else {
-						echo '<li><a href="#" class="nav-link px-2 text-white">My Booking</a></li>';
-					}
-				} 
-				?>
 		      </ul>
 		      <div class="d-flex">
-				<?php
-				if (isset($_SESSION['loggedin'])) {
-					echo '<div class="btn-group">';
-					echo '<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown"> Hello~ '.$_SESSION['name'].'</button>';
-					echo '<div class="dropdown-menu">';
-					// echo '<a class="dropdown-item" href="#">Profile</a>';
-					echo '<a class="dropdown-item" href="./controller/logout.php">Sign-out</a>';
-					echo '</div>';
-					echo '</div>';
-				} else {
-					echo '<a href="./view/login-view.php" class="btn btn-outline-light me-2">Sign-in</a>';
-					echo '<a href="./view/logon-view.php" class="btn btn-success">Sign-up</a>';
-				}
-				?>
+				<a href="./view/login-view.php" class="btn btn-outline-light me-2">Sign-in</a>
+				<a href="./view/logon-view.php" class="btn btn-success">Sign-up</a>
 		      </div>
 		    </div>
 		  </div>
@@ -100,6 +83,9 @@ $data=mysqli_query($conn,$query);
 				<hr class="container">
 
 				<div class="house-example container">
+					<div class="row text-center mb-5">
+						<h3>Best House Resources</h3>
+					</div>
 					<?php 
 					$loopn = 0;
 					while($result=mysqli_fetch_assoc($data)){
@@ -237,15 +223,6 @@ $data=mysqli_query($conn,$query);
 					<ul class="nav col-md-4 justify-content-end">
 						<li class="nav-item"><a href="./index.php" class="nav-link px-2 text-muted">Home</a></li>
 						<li class="nav-item"><a href="./view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
-						<?php 
-						if (isset($_SESSION['loggedin'])) {
-							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="./view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
-							} else {
-								echo '<li class="nav-item"><a href="./view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							}
-						} 
-						?>
 					</ul>
 				</footer>
 			</div>

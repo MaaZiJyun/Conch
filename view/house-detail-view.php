@@ -1,6 +1,8 @@
 <?php
 session_start();
-$id = $_GET [ 'id' ];
+if (!isset($_SESSION['loggedin']))$_SESSION['loggedin'] = false;
+$id = $_GET ['id'];
+// echo '<script> alert("'.$id.'");</script>';
 // $query="select * from house where id = ".$id;
 // $data=mysqli_query($conn,$query);
 $strHouseController='../controller/house-controller.php';
@@ -14,7 +16,7 @@ $controllerO=new OwnerController();
 
 $result_house=$controllerH->detail($id);
 $result_owner=$controllerO->detail($result_house['owner_id']);
-// echo '<script> alert("'.$result["owner_id"].'");</script>';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,11 +79,11 @@ $result_owner=$controllerO->detail($result_house['owner_id']);
 		      </ul>
 		      <div class="d-flex">
 				<?php
-				if (isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin']) {
 					echo '<div class="btn-group">';
 					echo '<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown"> Hello~ '.$_SESSION['name'].'</button>';
 					echo '<div class="dropdown-menu">';
-					// echo '<a class="dropdown-item" href="#">Profile</a>';
+					echo '<a class="dropdown-item" href="../view/home-view.php">Profile</a>';
 					echo '<a class="dropdown-item" href="../controller/logout.php">Sign-out</a>';
 					echo '</div>';
 					echo '</div>';
@@ -191,17 +193,19 @@ $result_owner=$controllerO->detail($result_house['owner_id']);
 							</ul>
 							<!-- <hr class="d-sm-none"> -->
 							<?php 
-							if (isset($_SESSION['loggedin']) && $_SESSION['identity'] == 'tenant') {
-								echo '<a href="../view/booking-register-view.php?h_id='.$result_house['id'].'&o_id='.$result_owner['o_id'].'&rate='.$result_house['rate'].'" style="height: fit-content;" class="btn btn-dark btn-block mt-2">Book Now!</a>';
-							}elseif (isset($_SESSION['loggedin']) && $_SESSION['identity'] == 'owner') {
-								if ($result_owner['o_id']==$_SESSION['id']) {
-									echo '<form method="POST" action="../controller/log.php?method=delete&table=house&nolog=yes">
-										<input type="hidden" name="id" value="'.$result_house['id'].'">
-										<button style="height: fit-content;" type="submit" class="btn btn-outline-danger btn-block mt-2">Delete this House</button>
-									</form>';
+							if (isset($_SESSION['loggedin'])) {
+								if ( $_SESSION['loggedin']==true && $_SESSION['identity'] == 'tenant') {
+									echo '<a href="../view/booking-register-view.php?h_id='.$result_house['id'].'&o_id='.$result_owner['o_id'].'&rate='.$result_house['rate'].'" style="height: fit-content;" class="btn btn-dark btn-block mt-2">Book Now!</a>';
+								}elseif ($_SESSION['loggedin']==true && $_SESSION['identity'] == 'owner') {
+									if ($result_owner['o_id']==$_SESSION['id']) {
+										echo '<form method="POST" action="../controller/log.php?method=delete&table=house&nolog=yes">
+											<input type="hidden" name="id" value="'.$result_house['id'].'">
+											<button style="height: fit-content;" type="submit" class="btn btn-outline-danger btn-block mt-2">Delete this House</button>
+										</form>';
+									}
+								} else {
+									echo '<a href="../view/logon-view.php" style="height: fit-content;" class="btn btn-dark btn-block mt-2">Log in and Book Now!</a>';
 								}
-							} else {
-								echo '<a href="../view/logon-view.php" style="height: fit-content;" class="btn btn-dark btn-block mt-2">Log in and Book Now!</a>';
 							}
 							?>
 						</div>
@@ -236,11 +240,13 @@ $result_owner=$controllerO->detail($result_house['owner_id']);
 						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
 						if (isset($_SESSION['loggedin'])) {
-							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
-                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							} else {
-								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+							if ($_SESSION['loggedin']==true) {
+								if ($_SESSION['identity'] == 'owner') {
+									echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
+									echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+								} else {
+									echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+								}
 							}
 						} 
 						?>

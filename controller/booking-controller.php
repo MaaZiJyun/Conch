@@ -94,7 +94,7 @@ class BookingController{
             $booking->setStatus($_POST["status"]);
             $save=$booking->save();
 
-            header('Location: ../view/index.php');
+            header('Location: ../view/my-booking-view.php');
         // }else{
         //     header('Location: ../view/logon-view.php');
         // }

@@ -72,7 +72,7 @@ class TenantController{
             // header('Location: ../index.php');
             echo '<script> alert("Login Successfully"); window.location.href="../index.php"</script>';
         } else {
-            echo '<script> alert("Login failed"); window.location.href="../view/login-view.html"</script>';
+            echo '<script> alert("Login failed"); window.location.href="../view/login-view.php"</script>';
         }
         
     }

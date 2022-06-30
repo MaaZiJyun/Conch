@@ -1,7 +1,12 @@
 <?php
-session_start();
+// session_start();
+include("../configs/session.php");
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: ../index.php');
+}else {
+    if ($_SESSION['loggedin']==false) {
+        header('Location: ../index.php');
+    }
 }
 include("../controller/connection.php");
 $query="select * from logs WHERE tar_id=".$_SESSION['id']." AND tar_ide='".$_SESSION['identity']."' AND viewed=0";
@@ -68,17 +73,17 @@ $data=mysqli_query($conn,$query);
 		      </ul>
 		      <div class="d-flex">
 				<?php
-				if (isset($_SESSION['loggedin'])) {
+				if ($_SESSION['loggedin']) {
 					echo '<div class="btn-group">';
 					echo '<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown"> Hello~ '.$_SESSION['name'].'</button>';
 					echo '<div class="dropdown-menu">';
-					// echo '<a class="dropdown-item" href="#">Profile</a>';
+					echo '<a class="dropdown-item" href="../view/home-view.php">Profile</a>';
 					echo '<a class="dropdown-item" href="../controller/logout.php">Sign-out</a>';
 					echo '</div>';
 					echo '</div>';
 				} else {
-					echo '<a href="../view/login-view.html" class="btn btn-outline-light me-2">Sign-in</a>';
-					echo '<a href="../view/logon-view.html" class="btn btn-success">Sign-up</a>';
+					echo '<a href="../view/login-view.php" class="btn btn-outline-light me-2">Sign-in</a>';
+					echo '<a href="../view/logon-view.php" class="btn btn-success">Sign-up</a>';
 				}
 				?>
 		      </div>
@@ -313,12 +318,14 @@ $data=mysqli_query($conn,$query);
 						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
 						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
-						if ($_SESSION['loggedin']) {
-							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
-                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							} else {
-								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+						if (isset($_SESSION['loggedin'])) {
+							if ($_SESSION['loggedin']==true) {
+								if ($_SESSION['identity'] == 'owner') {
+									echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
+									echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+								} else {
+									echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
+								}
 							}
 						} 
 						?>

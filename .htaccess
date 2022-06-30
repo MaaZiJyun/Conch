@@ -1,0 +1,15 @@
+<Files ~ "^.(htaccess|htpasswd)$">
+
+deny from all
+
+</Files>
+
+ErrorDocument 400 /HRWA/error/error.html
+ErrorDocument 401 /HRWA/error/error.html
+ErrorDocument 403 /HRWA/error/error.html
+ErrorDocument 404 /HRWA/error/error.html
+ErrorDocument 500 /HRWA/error/error.html
+ErrorDocument 502 /HRWA/error/error.html
+ErrorDocument 504 /HRWA/error/error.html
+
+order deny,allow

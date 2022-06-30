@@ -97,15 +97,15 @@ class HouseController{
         }
         // echo '<script> alert("'.$_POST["description"].'");</script>';
             $house=new House($this->Connection);
-            $house->setOwner_id($_POST["owner_id"]);
-            $house->setNo_of_rooms($_POST["no_of_rooms"]);
-            $house->setRate($_POST["rate"]);
-            $house->setPics($name);
-            $house->setCountry($_POST["country"]);
-            $house->setState($_POST["state"]);
-            $house->setCity($_POST["city"]);
-            $house->setAddress($_POST["address"]);
-            $house->setDescription($_POST["description"]);
+            $house->setOwner_id(htmlentities($_POST["owner_id"]));
+            $house->setNo_of_rooms(htmlentities($_POST["no_of_rooms"]));
+            $house->setRate(htmlentities($_POST["rate"]));
+            $house->setPics(htmlentities($name));
+            $house->setCountry(htmlentities($_POST["country"]));
+            $house->setState(htmlentities($_POST["state"]));
+            $house->setCity(htmlentities($_POST["city"]));
+            $house->setAddress(htmlentities($_POST["address"]));
+            $house->setDescription(htmlentities($_POST["description"]));
             $save=$house->save();
 
             header('Location: ../view/my-house-view.php');
@@ -120,7 +120,7 @@ class HouseController{
         if(isset($_POST["id"])){
             //We create a user
             $house=new House($this->Connection);
-            $house->deleteById($_POST["id"]);
+            $house->deleteById(htmlentities($_POST["id"]));
         }
         header('Location: ../view/house-list-view.php');
     }

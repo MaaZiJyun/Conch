@@ -1,7 +1,9 @@
 <?php
 session_start();
 if (isset($_SESSION['loggedin'])) {
-	header('Location: ./view/home-view.php');
+	if ($_SESSION['loggedin']) {
+		header('Location: ../view/index.php');
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -20,6 +22,32 @@ if (isset($_SESSION['loggedin'])) {
 			integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" href="../scss/login-view.css">
+
+		<style>
+			#message {
+				background: #f1f1f1;
+				color: #000;
+				position: relative;
+				padding: 20px;
+				margin-top: 10px;
+			}
+
+			#message p {
+				padding: 10px 35px;
+				font-size: 18px;
+			}
+
+			/* Add a green text color and a checkmark when the requirements are right */
+			.valid {
+			color: green;
+			}
+
+			/* Add a red text color and an "x" when the requirements are wrong */
+			.invalid {
+			color: red;
+			}
+		</style>
+
 	</head>
 
 	<body>
@@ -37,11 +65,11 @@ if (isset($_SESSION['loggedin'])) {
 			<div class="content">
 				<div class="container">
 					<div class="center login-card">
-						<form name="logon" id="logon" action="../view/logon-view.html" method="post" onsubmit="return check()">
+						<form name="logon" id="logon" action="../view/logon-view.php" method="post" onsubmit="return check()">
 							<div id="owner-name" class="input-block">
 								<label for="name" class="form-label">Name:</label>
 								<input type="text" class="form-control" id="name" placeholder="Enter name"
-									name="name">
+									name="name" required>
 							</div>
 							<div id="tenant-name" class="input-block" style="display: none;">
 								<div class="row">
@@ -65,11 +93,11 @@ if (isset($_SESSION['loggedin'])) {
 							<div class="input-block">
 								<label for="email" class="form-label">Email:</label>
 								<input type="email" class="form-control" id="email" placeholder="Enter email"
-									name="email">
+									name="email" required>
 							</div>
 							<div class="input-block">
 								<label for="mobile_no" class="form-label">Mobile:</label>
-								<input type="number" class="form-control" id="mobile_no" placeholder="Enter Mobile" name="mobile_no">
+								<input type="number" class="form-control" id="mobile_no" placeholder="Enter Mobile" name="mobile_no" required>
 							</div>
 							<div class="input-block">
 								<label for="occupation" class="form-label">Occupation:</label>
@@ -107,12 +135,46 @@ if (isset($_SESSION['loggedin'])) {
 									<input type="text" class="form-control" id="address" placeholder="Address" name="address">
 								</div>
 							</div>
-							
+
+
+							<!-- This is where the solusion -->
 							<div class="input-block">
 								<label for="pwd" class="form-label">Password:</label>
-								<input type="password" class="form-control" id="pwd" placeholder="Enter password"
-									name="pwd">
+								<input 
+									type="password" 
+									class="form-control" 
+									id="pwd" 
+									placeholder="Enter password"
+									name="pwd" 
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+									title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or 20 characters"
+								required>
 							</div>
+							<div id="message-box" style="display: none;">
+								<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+								<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+								<p id="number" class="invalid">A <b>number</b></p>
+								<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+							</div>
+							<!-- This is where the solusion -->
+
+							<!-- This is where the solusion -->
+							<div class="input-block">
+								<label for="pwd2" class="form-label">Password Validate:</label>
+								<input 
+									type="password" 
+									class="form-control" 
+									id="pwd2" 
+									placeholder="Enter password"
+									name="pwd2" 
+								required>
+							</div>
+							<div id="message-box2" style="display: none;">
+								<p id="same-pwd" class="invalid">Your second input is different from the previous one</p>
+							</div>
+							<!-- This is where the solusion -->
+
+
 							<div class="form-check">
 								<a href="login-view.php">I already had an account in Conch?</a>
 							</div>
@@ -126,17 +188,114 @@ if (isset($_SESSION['loggedin'])) {
 		</main>
 
 		<script>
-			function check(){
-				var identity = document.forms["logon"]["identity"].value;
-				var form = document.forms["logon"];
-				form.method = "POST";
-				if (identity=="Owner") {
-					form.action = "../controller/user-controller.php?identity=owner&action=register";
+			//This is where the solusion begin
+			var myInput = document.getElementById("pwd");
+			var myInput2 = document.getElementById("pwd2");
+			var letter = document.getElementById("letter");
+			var capital = document.getElementById("capital");
+			var number = document.getElementById("number");
+			var length = document.getElementById("length");
+			var double = document.getElementById("same-pwd");
+			//all boolean
+			var hasLetter = false;
+			var hasCapital = false;
+			var hasNumber = false;
+			var hasLength = false;
+			var samePwd = false;
+			// When the user clicks on the password field, show the message box
+			myInput.onfocus = function() {
+				document.getElementById("message-box").style.display = "block";
+			}
+			myInput2.onfocus = function() {
+				document.getElementById("message-box2").style.display = "block";
+			}
+			// When the user clicks outside of the password field, hide the message box
+			myInput.onblur = function() {
+				document.getElementById("message-box").style.display = "none";
+			}
+			myInput2.onblur = function() {
+				document.getElementById("message-box2").style.display = "none";
+			}
+			// When the user starts to type something inside the password field
+			myInput.onkeyup = function() {
+				// Validate lowercase letters
+				var lowerCaseLetters = /[a-z]/g;
+				if(myInput.value.match(lowerCaseLetters)) {  
+					letter.classList.remove("invalid");
+					letter.classList.add("valid");
+					hasLetter = true;
 				} else {
-					form.action = "../controller/user-controller.php?identity=tenant&action=register";
+					letter.classList.remove("valid");
+					letter.classList.add("invalid");
+					hasLetter = false;
 				}
-				form.submit();
-				return false;
+				
+				// Validate capital letters
+				var upperCaseLetters = /[A-Z]/g;
+				if(myInput.value.match(upperCaseLetters)) {  
+					capital.classList.remove("invalid");
+					capital.classList.add("valid");
+					hasCapital = true;
+				} else {
+					capital.classList.remove("valid");
+					capital.classList.add("invalid");
+					hasCapital = false;
+				}
+				// Validate numbers
+				var numbers = /[0-9]/g;
+				if(myInput.value.match(numbers)) {  
+					number.classList.remove("invalid");
+					number.classList.add("valid");
+					hasNumber = true;
+				} else {
+					number.classList.remove("valid");
+					number.classList.add("invalid");
+					hasNumber = false;
+				}
+				
+				// Validate length
+				if(myInput.value.length >= 8) {
+					length.classList.remove("invalid");
+					length.classList.add("valid");
+					hasLength = true;
+				} else {
+					length.classList.remove("valid");
+					length.classList.add("invalid");
+					hasLength = false;
+				}
+			}
+			myInput2.onkeyup = function(){
+				if(myInput2.value === myInput.value) {
+					double.classList.remove("invalid");
+					double.classList.add("valid");
+					samePwd = true;
+				} else {
+					double.classList.remove("valid");
+					double.classList.add("invalid");
+					samePwd = false;
+				}
+			}
+			function check(){
+				if (samePwd) {
+					if (hasLetter && hasCapital && hasNumber && hasLength) {
+						var identity = document.forms["logon"]["identity"].value;
+						var form = document.forms["logon"];
+						form.method = "POST";
+						if (identity=="Owner") {
+							form.action = "../controller/user-controller.php?identity=owner&action=register";
+						} else {
+							form.action = "../controller/user-controller.php?identity=tenant&action=register";
+						}
+						form.submit();
+						return false;
+					} else {
+						alert("Your password is invalid");
+						return false;
+					}
+				} else {
+					alert("Your Password Validate is different with Password");
+					return false;
+				}
 			}
 
 			// different types of user need to input different kinds of information
@@ -173,14 +332,6 @@ if (isset($_SESSION['loggedin'])) {
 						<li class="nav-item"><a href="../index.php" class="nav-link px-2 text-muted">Home</a></li>
 						<li class="nav-item"><a href="../view/house-list-view.php" class="nav-link px-2 text-muted">View Houses</a></li>
 						<?php 
-						if (isset($_SESSION['loggedin'])) {
-							if ($_SESSION['identity'] == 'owner') {
-								echo '<li class="nav-item"><a href="../view/my-house-view.php" class="nav-link px-2 text-muted">My House</a></li>';
-                                echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							} else {
-								echo '<li class="nav-item"><a href="../view/my-booking-view.php" class="nav-link px-2 text-muted">My Booking</a></li>';
-							}
-						} 
 						?>
 					</ul>
 				</footer>
